@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🎉</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="crossword-section" class="section active">
+            <h1>Happy Birthday! 🎉</h1>
+            <p class="subtitle">Complete the crossword to continue...</p>
+            <div id="crossword-container"></div>
+            <div id="hints-container"></div>
+            <div id="message" class="message"></div>
+        </div>
+
+        <div id="next-section" class="section hidden">
+            <h1>🎊 Congratulations! 🎊</h1>
+            <p class="subtitle">You solved the crossword! Now try Connections...</p>
+
+            <div id="connections-game">
+                <div id="mistakes-container">
+                    <div class="mistake-indicator">Mistakes: <span id="mistakes-count">0</span>/4</div>
+                </div>
+
+                <div id="selected-words" class="selected-words"></div>
+
+                <div id="words-grid" class="words-grid"></div>
+
+                <div id="connections-message" class="message"></div>
+
+                <div id="connections-complete" class="section hidden">
+                    <h2>🎉 Amazing! You completed Connections! 🎉</h2>
+                    <div id="categories-revealed"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="crossword.js"></script>
+    <script src="connections.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
