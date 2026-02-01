@@ -6,24 +6,24 @@ const CONNECTIONS_CONFIG = {
     // Difficulty: 1 = easiest (green), 2 = medium (yellow), 3 = hard (light blue), 4 = hardest (purple)
     categories: [
         {
-            name: "Sports Games", // Replace with your category name
-            words: ["FIFA", "TAG", "SOCCER", "BASKETBALL"], // Replace with your words
+            name: "outside",
+            words: ["TAG", "SOCCER", "BASKETBALL", "PIGGYBACK"],
             difficulty: 2 // Yellow (easiest)
         },
         {
-            name: "Category 2", // Replace with your category name
-            words: ["WORD5", "WORD6", "WORD7", "WORD8"], // Replace with your words
-            difficulty: 1
+            name: "at the library",
+            words: ["DANCE", "FIFA", "ITALIAN BRAINROT", "STUDY"],
+            difficulty: 1 // Green
         },
         {
-            name: "Category 3", // Replace with your category name
-            words: ["WORD9", "WORD10", "WORD11", "WORD12"], // Replace with your words
-            difficulty: 3
+            name: "First word of media you like",
+            words: ["ALMOST", "WEST", "GOOD", "LITTLE"],
+            difficulty: 3 // Blue
         },
         {
-            name: "Category 4", // Replace with your category name
-            words: ["WORD13", "WORD14", "WORD15", "WORD16"], // Replace with your words
-            difficulty: 4
+            name: "At school",
+            words: ["WORD MAFIA", "SCAVENGER HUNT", "ZUMBA", "ROCKLET"],
+            difficulty: 4 // Purple (hardest)
         }
     ]
 };
@@ -155,7 +155,7 @@ class ConnectionsGame {
         selectedContainer.innerHTML = '';
 
         if (this.selectedWords.size === 0) {
-            selectedContainer.innerHTML = '<p class="select-hint">Select 4 words that belong together</p>';
+            selectedContainer.innerHTML = '<p class="select-hint">select 4 words that belong together</p>';
             return;
         }
 
@@ -171,7 +171,7 @@ class ConnectionsGame {
         if (this.selectedWords.size === 4) {
             const submitBtn = document.createElement('button');
             submitBtn.className = 'submit-btn';
-            submitBtn.textContent = 'Submit';
+            submitBtn.textContent = 'submit';
             submitBtn.addEventListener('click', () => this.checkSelection());
             selectedContainer.appendChild(submitBtn);
         }
@@ -216,13 +216,13 @@ class ConnectionsGame {
             this.updateMistakes();
 
             if (this.mistakes >= this.maxMistakes) {
-                this.showMessage('Game Over! Too many mistakes.', 'error');
+                this.showMessage('game over! too many mistakes.', 'error');
                 // Reveal all categories
                 setTimeout(() => {
                     this.revealAll();
                 }, 2000);
             } else {
-                this.showMessage('Not quite! Try again.', 'error');
+                this.showMessage('not quite! try again.', 'error');
                 this.selectedWords.clear();
                 this.updateSelectedDisplay();
             }
@@ -301,20 +301,3 @@ class ConnectionsGame {
 
 // Initialize connections game when the section becomes active
 let connectionsGame;
-const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-            const nextSection = document.getElementById('next-section');
-            if (nextSection && nextSection.classList.contains('active') && !connectionsGame) {
-                connectionsGame = new ConnectionsGame(CONNECTIONS_CONFIG);
-            }
-        }
-    });
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-    const nextSection = document.getElementById('next-section');
-    if (nextSection) {
-        observer.observe(nextSection, { attributes: true });
-    }
-});

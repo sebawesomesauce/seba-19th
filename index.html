@@ -13,10 +13,10 @@
         </div>
 
         <div class="aol-toolbar">
-            <button class="toolbar-btn" onclick="showBeckham()">Home</button>
-            <button class="toolbar-btn" onclick="startGame()">Crossword</button>
-            <button class="toolbar-btn" onclick="showConnections()">Connections</button>
-            <button class="toolbar-btn" onclick="showEscapeRoom()">Escape Room</button>
+            <button class="toolbar-btn" onclick="showBeckham()">home</button>
+            <button class="toolbar-btn" onclick="showPuzzle()">crossword</button>
+            <button class="toolbar-btn" onclick="showConnections()">connections</button>
+            <button class="toolbar-btn" onclick="showEscapeRoom()">escape room</button>
             <div class="toolbar-spacer"></div>
             <div class="welcome-text"><span id="current-date"></span></div>
         </div>
@@ -35,46 +35,43 @@
                                 <img src="seba6.jpg" alt="Seba Photo 6" class="seba-photo scattered" style="top: 88%; right: 2%;" onerror="this.style.display='none';" />
                             </div>
                             <div class="center-message">
-                                <h2 class="birthday-message">Happy 19th Sebaaaaaa</h2>
+                                <h2 class="birthday-message">happy 19th sebaaaaaa</h2>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="crossword-section" class="section hidden">
+                <div id="puzzle-section" class="section hidden">
                     <div class="content-header">
-                        <h1>The Mini Crossword</h1>
-                        <div class="content-date" id="crossword-date"></div>
+                        <h1>crossword</h1>
+                        <div class="content-date" id="puzzle-date"></div>
                     </div>
 
                     <div class="content-box">
-                        <div class="crossword-layout">
-                            <div class="crossword-left">
-                                <div id="selected-clue" class="selected-clue"></div>
-                                <div id="crossword-container"></div>
-                            </div>
-                            <div class="crossword-right">
-                                <div id="hints-container"></div>
-                            </div>
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <button onclick="toggleDrawMode()" class="toolbar-btn" id="draw-mode-btn">draw mode</button>
+                            <button onclick="toggleEraserMode()" class="toolbar-btn" id="eraser-mode-btn">eraser</button>
+                            <button onclick="clearCanvas()" class="toolbar-btn">clear</button>
+                            <button onclick="saveCanvas()" class="toolbar-btn">save</button>
                         </div>
-                        <div id="message" class="message"></div>
+                        <canvas id="crossword-canvas" style="border: 1px solid #ccc; cursor: crosshair; max-width: 100%; height: auto; display: block; margin: 0 auto;"></canvas>
                     </div>
                 </div>
 
                 <div id="next-section" class="section hidden">
                     <div class="content-header">
-                        <h1>Connections</h1>
+                        <h1>connections</h1>
                         <div class="content-date" id="connections-date"></div>
                     </div>
 
                     <div class="content-box">
                         <div id="connections-game">
-                            <p class="connections-instruction">Create four groups of four!</p>
+                            <p class="connections-instruction">create four groups of four!</p>
 
                             <div id="solved-groups" class="solved-groups"></div>
 
                             <div id="mistakes-container" class="mistakes-container">
-                                <div class="mistake-indicator">Mistakes: <span id="mistakes-count">0</span>/4</div>
+                                <div class="mistake-indicator">mistakes: <span id="mistakes-count">0</span>/4</div>
                             </div>
 
                             <div id="selected-words" class="selected-words"></div>
@@ -84,7 +81,7 @@
                             <div id="connections-message" class="message"></div>
 
                             <div id="connections-complete" class="connections-complete hidden">
-                                <button id="view-results-btn" class="aol-button">View Results</button>
+                                <button id="view-results-btn" class="aol-button">view results</button>
                             </div>
                         </div>
                     </div>
@@ -92,7 +89,7 @@
 
                 <div id="escape-room-section" class="section hidden">
                     <div class="content-header">
-                        <h1>Escape Room</h1>
+                        <h1>escape room</h1>
                         <div class="content-date" id="escape-room-date"></div>
                     </div>
 
@@ -107,9 +104,8 @@
                                         </p>
                                     </div>
                                 </div>
-                                <h2>Beckham Needs Your Help!</h2>
-                                <p>Solve the clues to unlock the final answer. Each clue will lead you to the next one.</p>
-                                <button onclick="startEscapeRoom()" class="aol-button">Start Escape Room</button>
+                                <h2>beckham has been held captive in this indian girl's ceiling pls help him get out</h2>
+                                <p style="margin-top: 20px; font-size: 14px;">in progress lo siento</p>
                             </div>
 
                             <div id="escape-room-content" class="escape-room-content hidden">
@@ -119,20 +115,20 @@
                                 </div>
 
                                 <div id="answer-input" class="answer-input">
-                                    <label for="clue-answer">Enter your answer:</label>
-                                    <input type="text" id="clue-answer" class="clue-input" placeholder="Type your answer here...">
-                                    <button onclick="submitClueAnswer()" class="aol-button">Submit</button>
+                                    <label for="clue-answer">enter your answer:</label>
+                                    <input type="text" id="clue-answer" class="clue-input" placeholder="type your answer here...">
+                                    <button onclick="submitClueAnswer()" class="aol-button">submit</button>
                                 </div>
 
                                 <div id="escape-room-message" class="message"></div>
 
                                 <div id="solved-clues" class="solved-clues">
-                                    <h3>Solved Clues</h3>
+                                    <h3>solved clues</h3>
                                     <div id="solved-clues-list"></div>
                                 </div>
 
                                 <div id="escape-room-complete" class="escape-room-complete hidden">
-                                    <h2>🎉 Congratulations! You Escaped! 🎉</h2>
+                                    <h2>🎉 congratulations! you escaped! 🎉</h2>
                                     <div id="final-message"></div>
                                 </div>
                             </div>
@@ -154,28 +150,14 @@
             const dateStr = today.toLocaleDateString('en-US', options);
             document.getElementById('current-date').textContent = dateStr;
             document.getElementById('welcome-date').textContent = dateStr;
-            document.getElementById('crossword-date').textContent = dateStr;
+            document.getElementById('puzzle-date').textContent = dateStr;
             document.getElementById('connections-date').textContent = dateStr;
             document.getElementById('escape-room-date').textContent = dateStr;
         }
 
-        function startGame() {
-            document.getElementById('beckham-section').classList.remove('active');
-            document.getElementById('beckham-section').classList.add('hidden');
-            document.getElementById('next-section').classList.remove('active');
-            document.getElementById('next-section').classList.add('hidden');
-            document.getElementById('escape-room-section').classList.remove('active');
-            document.getElementById('escape-room-section').classList.add('hidden');
-            document.getElementById('crossword-section').classList.remove('hidden');
-            document.getElementById('crossword-section').classList.add('active');
-            if (typeof crossword !== 'undefined') {
-                crossword.render();
-            }
-        }
-
         function showBeckham() {
-            document.getElementById('crossword-section').classList.remove('active');
-            document.getElementById('crossword-section').classList.add('hidden');
+            document.getElementById('puzzle-section').classList.remove('active');
+            document.getElementById('puzzle-section').classList.add('hidden');
             document.getElementById('next-section').classList.remove('active');
             document.getElementById('next-section').classList.add('hidden');
             document.getElementById('escape-room-section').classList.remove('active');
@@ -184,25 +166,38 @@
             document.getElementById('beckham-section').classList.add('active');
         }
 
+        function showPuzzle() {
+            document.getElementById('beckham-section').classList.remove('active');
+            document.getElementById('beckham-section').classList.add('hidden');
+            document.getElementById('next-section').classList.remove('active');
+            document.getElementById('next-section').classList.add('hidden');
+            document.getElementById('escape-room-section').classList.remove('active');
+            document.getElementById('escape-room-section').classList.add('hidden');
+            document.getElementById('puzzle-section').classList.remove('hidden');
+            document.getElementById('puzzle-section').classList.add('active');
+            // Initialize canvas after a short delay to ensure it's visible
+            setTimeout(initCanvas, 100);
+        }
+
         function showConnections() {
             document.getElementById('beckham-section').classList.remove('active');
             document.getElementById('beckham-section').classList.add('hidden');
-            document.getElementById('crossword-section').classList.remove('active');
-            document.getElementById('crossword-section').classList.add('hidden');
+            document.getElementById('puzzle-section').classList.remove('active');
+            document.getElementById('puzzle-section').classList.add('hidden');
             document.getElementById('escape-room-section').classList.remove('active');
             document.getElementById('escape-room-section').classList.add('hidden');
             document.getElementById('next-section').classList.remove('hidden');
             document.getElementById('next-section').classList.add('active');
-            if (typeof connectionsGame !== 'undefined' && !connectionsGame) {
-                connectionsGame = new ConnectionsGame(CONNECTIONS_CONFIG);
-            }
+            // Always reinitialize to get updated config - reset everything
+            connectionsGame = null;
+            connectionsGame = new ConnectionsGame(CONNECTIONS_CONFIG);
         }
 
         function showEscapeRoom() {
             document.getElementById('beckham-section').classList.remove('active');
             document.getElementById('beckham-section').classList.add('hidden');
-            document.getElementById('crossword-section').classList.remove('active');
-            document.getElementById('crossword-section').classList.add('hidden');
+            document.getElementById('puzzle-section').classList.remove('active');
+            document.getElementById('puzzle-section').classList.add('hidden');
             document.getElementById('next-section').classList.remove('active');
             document.getElementById('next-section').classList.add('hidden');
             document.getElementById('escape-room-section').classList.remove('hidden');
@@ -238,6 +233,204 @@
         });
 
         window.addEventListener('DOMContentLoaded', setDate);
+
+        // Crossword canvas drawing functionality
+        let canvas, ctx;
+        let drawingCanvas, drawingCtx; // Separate canvas for drawing layer
+        let isDrawing = false;
+        let drawMode = false;
+        let eraserMode = false;
+
+        function initCanvas() {
+            canvas = document.getElementById('crossword-canvas');
+            if (!canvas) return;
+
+            ctx = canvas.getContext('2d');
+
+            // Create a separate canvas for the drawing layer
+            drawingCanvas = document.createElement('canvas');
+            drawingCtx = drawingCanvas.getContext('2d');
+
+            // Load the background image
+            const img = new Image();
+            img.onload = function() {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                drawingCanvas.width = img.width;
+                drawingCanvas.height = img.height;
+
+                // Draw the background on main canvas
+                ctx.drawImage(img, 0, 0);
+
+                // Load saved drawing if exists
+                const saved = localStorage.getItem('crossword-drawing');
+                if (saved) {
+                    const savedImg = new Image();
+                    savedImg.onload = function() {
+                        // Draw saved drawing on drawing layer
+                        drawingCtx.drawImage(savedImg, 0, 0);
+                        // Composite drawing layer onto main canvas
+                        ctx.drawImage(drawingCanvas, 0, 0);
+                    };
+                    savedImg.src = saved;
+                }
+            };
+            img.src = 'empty_crossword.png';
+
+            // Drawing events
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            // Touch events for mobile
+            canvas.addEventListener('touchstart', handleTouch);
+            canvas.addEventListener('touchmove', handleTouch);
+            canvas.addEventListener('touchend', stopDrawing);
+        }
+
+        function getCanvasCoordinates(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
+            return { x, y };
+        }
+
+        function getTouchCoordinates(e) {
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const x = (touch.clientX - rect.left) * scaleX;
+            const y = (touch.clientY - rect.top) * scaleY;
+            return { x, y };
+        }
+
+        function startDrawing(e) {
+            if (!drawMode && !eraserMode) return;
+            isDrawing = true;
+            const coords = getCanvasCoordinates(e);
+            ctx.beginPath();
+            ctx.moveTo(coords.x, coords.y);
+            if (drawingCtx) {
+                drawingCtx.beginPath();
+                drawingCtx.moveTo(coords.x, coords.y);
+            }
+        }
+
+        function draw(e) {
+            if (!isDrawing || (!drawMode && !eraserMode)) return;
+            e.preventDefault();
+            const coords = getCanvasCoordinates(e);
+
+            if (eraserMode) {
+                // Eraser mode - erase from drawing layer only
+                drawingCtx.globalCompositeOperation = 'destination-out';
+                drawingCtx.lineWidth = 10;
+                drawingCtx.lineTo(coords.x, coords.y);
+                drawingCtx.lineCap = 'round';
+                drawingCtx.stroke();
+
+                // Redraw main canvas: background + updated drawing layer
+                const img = new Image();
+                img.onload = function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
+                    ctx.drawImage(drawingCanvas, 0, 0);
+                };
+                img.src = 'empty_crossword.png';
+            } else {
+                // Draw mode - draw with black on drawing layer
+                drawingCtx.globalCompositeOperation = 'source-over';
+                drawingCtx.strokeStyle = '#000000';
+                drawingCtx.lineWidth = 2;
+                drawingCtx.lineTo(coords.x, coords.y);
+                drawingCtx.lineCap = 'round';
+                drawingCtx.stroke();
+
+                // Draw on main canvas
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.strokeStyle = '#000000';
+                ctx.lineWidth = 2;
+                ctx.lineTo(coords.x, coords.y);
+                ctx.lineCap = 'round';
+                ctx.stroke();
+            }
+
+            // Auto-save after each stroke
+            saveCanvasState();
+        }
+
+        function stopDrawing() {
+            if (isDrawing) {
+                isDrawing = false;
+                // Save one more time when stopping
+                saveCanvasState();
+            }
+        }
+
+        function handleTouch(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent((drawMode || eraserMode) && isDrawing ? 'mousemove' : 'mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        function toggleDrawMode() {
+            drawMode = !drawMode;
+            eraserMode = false;
+            document.getElementById('draw-mode-btn').textContent = drawMode ? 'draw mode (on)' : 'draw mode';
+            document.getElementById('eraser-mode-btn').textContent = 'eraser';
+            canvas.style.cursor = drawMode ? 'crosshair' : 'default';
+        }
+
+        function toggleEraserMode() {
+            eraserMode = !eraserMode;
+            drawMode = false;
+            document.getElementById('eraser-mode-btn').textContent = eraserMode ? 'eraser (on)' : 'eraser';
+            document.getElementById('draw-mode-btn').textContent = 'draw mode';
+            canvas.style.cursor = eraserMode ? 'crosshair' : 'default';
+        }
+
+
+        function clearCanvas() {
+            if (confirm('Clear all drawings?')) {
+                // Clear drawing layer
+                if (drawingCtx) {
+                    drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+                }
+                // Redraw main canvas with just background
+                const img = new Image();
+                img.onload = function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
+                    localStorage.removeItem('crossword-drawing');
+                };
+                img.src = 'empty_crossword.png';
+            }
+        }
+
+        function saveCanvasState() {
+            // Save only the drawing layer (not the background)
+            if (drawingCanvas) {
+                const dataURL = drawingCanvas.toDataURL('image/png');
+                localStorage.setItem('crossword-drawing', dataURL);
+            }
+        }
+
+        function saveCanvas() {
+            const dataURL = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = 'crossword-solved.png';
+            link.href = dataURL;
+            link.click();
+        }
+
     </script>
 </body>
 </html>

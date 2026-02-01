@@ -39,7 +39,7 @@ const ESCAPE_ROOM_CONFIG = {
             nextClue: null // Final clue
         }
     ],
-    finalMessage: "🎉 Happy 19th Birthday! You've successfully escaped! 🎉"
+    finalMessage: "🎉 happy 19th birthday! you've successfully escaped! 🎉"
 };
 
 class EscapeRoom {

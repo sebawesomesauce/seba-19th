@@ -2,24 +2,26 @@
 // Customize the words and hints here!
 
 const CROSSWORD_CONFIG = {
-    // Grid size (rows x cols)
-    rows: 7,
-    cols: 7,
+    // Grid size (rows x cols) - 8x8 to accommodate all words
+    rows: 8,
+    cols: 8,
 
-    // Words to place in the crossword
-    // Format: { word: "WORD", clue: "Hint text", direction: "across" or "down", row: 0, col: 0 }
+    // Words to place in the crossword - exact positions from image
+    // Format: { word: "WORD", clue: "Hint text", direction: "across" or "down", row: 0, col: 0, number: 1 }
     words: [
-        { word: "YOYOMA", clue: "Who rules?", direction: "across", row: 0, col: 0 },
-        { word: "HAPPY", clue: "Feeling joyful", direction: "down", row: 0, col: 2 },
-        { word: "DAY", clue: "24 hours", direction: "across", row: 2, col: 0 },
-        { word: "FRIEND", clue: "Someone you care about", direction: "down", row: 0, col: 4 },
-        { word: "PARTY", clue: "A celebration", direction: "across", row: 4, col: 0 },
-        { word: "CAKE", clue: "Sweet dessert", direction: "across", row: 6, col: 2 },
-        { word: "GIFT", clue: "Something given", direction: "down", row: 2, col: 6 },
-        { word: "LOVE", clue: "Deep affection", direction: "down", row: 1, col: 0 },
-        { word: "SMILE", clue: "Happy expression", direction: "down", row: 2, col: 2 },
-        { word: "JOY", clue: "Great happiness", direction: "across", row: 4, col: 2 },
-        { word: "BIRTH", clue: "The day you were born", direction: "down", row: 0, col: 6 }
+        // Across words (exact from image)
+        { word: "TAMALES", clue: "My misspelling of lamine's last name", direction: "across", row: 0, col: 1, number: 2 },
+        { word: "SUMMIT", clue: "Name of your soccer team", direction: "across", row: 2, col: 0, number: 3 },
+        { word: "SEVEN", clue: "# of the GOAT", direction: "across", row: 3, col: 2, number: 6 },
+        { word: "YOYOMA", clue: "Who rules?", direction: "across", row: 4, col: 1, number: 8 },
+        { word: "URAGAY", clue: "Switzerland, Ghana, Japan, …", direction: "across", row: 5, col: 1, number: 9 },
+        { word: "KAROLG", clue: "Name of one of your birds", direction: "across", row: 6, col: 1, number: 10 },
+        // Down words (exact from image)
+        { word: "KANSAS", clue: "Forgot that inside this icon there's still a young girl from", direction: "down", row: 0, col: 0, number: 1 },
+        { word: "TOUGH", clue: "Laugh until our ribs get", direction: "down", row: 0, col: 1, number: 2 },
+        { word: "CHOIR", clue: "I'm preaching to the", direction: "down", row: 1, col: 3, number: 4 },
+        { word: "ZUMBA", clue: "Que hace una abeja en el gimnasio?", direction: "down", row: 1, col: 5, number: 5 },
+        { word: "NUEVA", clue: "Taqueria la", direction: "down", row: 3, col: 2, number: 7 }
     ]
 };
 
@@ -59,37 +61,44 @@ class Crossword {
     }
 
     placeWords() {
-        let clueNumber = 1;
         const cellNumbers = new Map(); // Track which number is assigned to each starting cell
 
         this.config.words.forEach((wordData, index) => {
-            const { word, clue, direction, row, col } = wordData;
+            const { word, clue, direction, row, col, number } = wordData;
             const wordId = `word-${index}`;
             const startKey = `${row},${col}`;
+            const upperWord = word.toUpperCase();
+
+            // Use provided number or assign one
+            const wordNumber = number || (cellNumbers.has(startKey) ? cellNumbers.get(startKey) : Object.keys(cellNumbers).length + 1);
+            if (!cellNumbers.has(startKey)) {
+                cellNumbers.set(startKey, wordNumber);
+            }
 
             // Mark cells for this word
-            for (let i = 0; i < word.length; i++) {
+            for (let i = 0; i < upperWord.length; i++) {
                 const r = direction === "across" ? row : row + i;
                 const c = direction === "across" ? col + i : col;
 
                 if (r >= 0 && r < this.config.rows && c >= 0 && c < this.config.cols) {
                     if (i === 0) {
-                        // Starting cell - assign number if not already assigned
-                        if (!cellNumbers.has(startKey)) {
-                            cellNumbers.set(startKey, clueNumber++);
-                        }
-                        this.grid[r][c].number = cellNumbers.get(startKey);
+                        // Starting cell - assign number
+                        this.grid[r][c].number = wordNumber;
                     }
                     this.grid[r][c].blocked = false;
-                    this.grid[r][c].letter = word[i];
+                    // Check for letter conflicts at intersections
+                    if (this.grid[r][c].letter && this.grid[r][c].letter !== upperWord[i]) {
+                        console.warn(`Letter conflict at (${r},${c}): existing "${this.grid[r][c].letter}" vs new "${upperWord[i]}" for word "${word}"`);
+                    }
+                    // Set letter (intersections should match)
+                    this.grid[r][c].letter = upperWord[i];
                     this.grid[r][c].words.push(wordId);
                 }
             }
 
             // Store word info with its number
-            const wordNumber = cellNumbers.get(startKey);
             this.wordMap.set(wordId, {
-                word: word.toUpperCase(),
+                word: upperWord,
                 clue: clue,
                 direction: direction,
                 number: wordNumber,
@@ -97,7 +106,7 @@ class Crossword {
             });
 
             // Collect cell references
-            for (let i = 0; i < word.length; i++) {
+            for (let i = 0; i < upperWord.length; i++) {
                 const r = direction === "across" ? row : row + i;
                 const c = direction === "across" ? col + i : col;
                 if (r >= 0 && r < this.config.rows && c >= 0 && c < this.config.cols) {
@@ -105,28 +114,47 @@ class Crossword {
                 }
             }
         });
+
+        // After placing all words, mark remaining cells as blocked
+        for (let i = 0; i < this.config.rows; i++) {
+            for (let j = 0; j < this.config.cols; j++) {
+                if (!this.grid[i][j].letter) {
+                    this.grid[i][j].blocked = true;
+                }
+            }
+        }
     }
 
     render() {
         const container = document.getElementById('crossword-container');
-        container.style.gridTemplateColumns = `repeat(${this.config.cols}, 1fr)`;
         container.innerHTML = '';
+        container.style.position = 'relative';
+        container.style.width = 'auto';
+        container.style.height = 'auto';
+        container.style.background = 'transparent';
+        container.style.border = 'none';
         this.cells = [];
 
-        // Create cells
+        // Only create cells for positions that have letters (not blocked)
         for (let i = 0; i < this.config.rows; i++) {
             for (let j = 0; j < this.config.cols; j++) {
-                const cell = document.createElement('input');
-                cell.type = 'text';
-                cell.maxLength = 1;
-                cell.className = 'crossword-cell';
-
                 const cellData = this.grid[i][j];
 
-                if (cellData.blocked) {
-                    cell.classList.add('blocked');
-                    cell.disabled = true;
-                } else {
+                if (!cellData.blocked) {
+                    // Create input cell for word cells only
+                    const cell = document.createElement('input');
+                    cell.type = 'text';
+                    cell.maxLength = 1;
+                    cell.className = 'crossword-cell';
+                    cell.style.position = 'absolute';
+                    cell.style.left = `${j * 50}px`;
+                    cell.style.top = `${i * 50}px`;
+                    cell.style.width = '50px';
+                    cell.style.height = '50px';
+                    cell.style.margin = '0';
+                    cell.style.background = '#ffffff';
+                    cell.style.border = '1px solid #000000';
+
                     if (cellData.number) {
                         cell.classList.add('numbered');
                         const number = document.createElement('span');
@@ -143,10 +171,10 @@ class Crossword {
                     cell.addEventListener('keydown', (e) => this.handleKeyDown(e, i, j));
                     cell.addEventListener('focus', () => this.handleCellFocus(i, j));
                     cell.addEventListener('blur', () => this.clearHighlighting());
-                }
 
-                container.appendChild(cell);
-                this.cells.push(cell);
+                    container.appendChild(cell);
+                    this.cells.push(cell);
+                }
             }
         }
 
@@ -160,13 +188,13 @@ class Crossword {
         const across = document.createElement('div');
         across.className = 'hints-column';
         const acrossTitle = document.createElement('h3');
-        acrossTitle.textContent = 'Across';
+        acrossTitle.textContent = 'across';
         across.appendChild(acrossTitle);
 
         const down = document.createElement('div');
         down.className = 'hints-column';
         const downTitle = document.createElement('h3');
-        downTitle.textContent = 'Down';
+        downTitle.textContent = 'down';
         down.appendChild(downTitle);
 
         // Group words by direction and sort by number
