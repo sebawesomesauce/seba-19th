@@ -1,26 +1,202 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* AOL Desktop Application Style - 1999 */
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 50%, #ADD8E6 100%);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: Arial, sans-serif;
+    background: #e6f2ff;
+    margin: 0;
     padding: 20px;
+    font-size: 12px;
 }
 
-.container {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    max-width: 800px;
+.aol-window {
+    background: #ffffff;
+    border: 2px outset #c0c0c0;
+    max-width: 1000px;
+    margin: 0 auto;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.aol-titlebar {
+    background: linear-gradient(to bottom, #0066cc 0%, #004499 100%);
+    color: #ffffff;
+    padding: 5px 10px;
+    font-weight: bold;
+    border-bottom: 1px solid #000000;
+}
+
+.title-text {
+    font-size: 13px;
+}
+
+.aol-toolbar {
+    background: #e6f2ff;
+    border-bottom: 1px solid #87ceeb;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toolbar-btn {
+    padding: 4px 12px;
+    background: #0066cc;
+    color: #ffffff;
+    border: 1px outset #0066cc;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.toolbar-btn:active {
+    border: 1px inset #0066cc;
+}
+
+.toolbar-spacer {
+    flex: 1;
+}
+
+.welcome-text {
+    font-size: 11px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.aol-main {
     width: 100%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.aol-content {
+    padding: 15px;
+    background: #ffffff;
+}
+
+.content-header {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0066cc;
+}
+
+.content-header h1 {
+    color: #0066cc;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+}
+
+.content-date {
+    font-size: 11px;
+    color: #666666;
+}
+
+.content-box {
+    background: #ffffff;
+    border: 1px solid #cccccc;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.content-box h2 {
+    color: #0066cc;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 5px;
+}
+
+.beckham-image {
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid #0066cc;
+    display: block;
+    margin: 0 auto 15px;
+}
+
+.homepage-container {
+    position: relative;
+    min-height: 500px;
+    width: 100%;
+}
+
+.seba-photos-scattered {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    height: 100%;
+}
+
+.seba-photo.scattered {
+    position: absolute !important;
+    max-width: 150px !important;
+    max-height: 150px !important;
+    width: auto !important;
+    height: auto !important;
+    border: 1px solid #0066cc;
+    object-fit: contain;
+    border-radius: 4px;
+    z-index: 1;
+    margin: 20px !important;
+}
+
+.seba-photos-scattered img {
+    max-width: 150px !important;
+    max-height: 150px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain;
+    margin: 20px !important;
+}
+
+.center-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px 30px;
+    border: 2px solid #0066cc;
+}
+
+.birthday-message {
+    color: #0066cc;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.feature-text {
+    text-align: center;
+    padding: 10px;
+}
+
+.feature-text h3 {
+    color: #0066cc;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.beckham-watching {
+    color: #0066cc;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.aol-button {
+    padding: 8px 20px;
+    background: #0066cc;
+    color: #ffffff;
+    border: 2px outset #0066cc;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.aol-button:active {
+    border: 2px inset #0066cc;
 }
 
 .section {
@@ -35,55 +211,58 @@ body {
     display: none;
 }
 
-h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 10px;
-    font-size: 2.5em;
+/* Crossword */
+.crossword-layout {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.subtitle {
-    text-align: center;
-    color: #666;
-    margin-bottom: 30px;
-    font-size: 1.1em;
+.crossword-left {
+    display: table-cell;
+    vertical-align: top;
+    padding-right: 20px;
+}
+
+.crossword-right {
+    display: table-cell;
+    vertical-align: top;
+    width: 300px;
+}
+
+.selected-clue {
+    margin-bottom: 15px;
+    padding: 8px;
+    background: #f0f0f0;
+    border: 1px solid #cccccc;
+    font-size: 11px;
 }
 
 #crossword-container {
     display: grid;
-    gap: 2px;
-    background: #333;
-    padding: 2px;
-    border-radius: 8px;
-    margin: 0 auto 30px;
+    border: 1px solid #000000;
     width: fit-content;
+    background: #000000;
 }
 
 .crossword-cell {
-    width: 40px;
-    height: 40px;
-    background: white;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
+    width: 45px;
+    height: 45px;
+    background: #ffffff;
+    border: 1px solid #000000;
+    font-size: 16px;
     font-weight: bold;
-    text-transform: uppercase;
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s;
 }
 
 .crossword-cell:focus {
-    outline: 3px solid #87CEEB;
-    outline-offset: -3px;
-    background: #E0F6FF;
+    background: #ffffcc;
+    outline: 2px solid #0066cc;
 }
 
 .crossword-cell.blocked {
-    background: #333;
-    cursor: default;
+    background: #000000;
 }
 
 .crossword-cell.numbered {
@@ -93,260 +272,419 @@ h1 {
 .cell-number {
     position: absolute;
     top: 2px;
-    left: 2px;
-    font-size: 10px;
-    color: #333;
-    font-weight: bold;
-    pointer-events: none;
+    left: 3px;
+    font-size: 9px;
+}
+
+.crossword-cell.highlighted-start {
+    background: #ffff00 !important;
+    border: 2px solid #0066cc !important;
+}
+
+.crossword-cell.highlighted-word {
+    background: #ffffcc !important;
+    border: 2px solid #0066cc !important;
 }
 
 .crossword-cell.correct {
     background: #d4edda;
-    color: #155724;
 }
 
 #hints-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 30px;
+    display: table;
+    width: 100%;
+}
+
+.hints-column {
+    display: table-cell;
+    vertical-align: top;
+    padding-right: 15px;
 }
 
 .hints-column h3 {
-    color: #4682B4;
-    margin-bottom: 15px;
-    font-size: 1.2em;
+    color: #0066cc;
+    font-size: 12px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 3px;
 }
 
 .hint-item {
-    margin-bottom: 12px;
-    padding: 10px;
-    background: #F0F8FF;
-    border-radius: 6px;
-    border-left: 3px solid #87CEEB;
+    margin-bottom: 6px;
+    padding: 4px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.hint-item:hover {
+    background: #e6f2ff;
+}
+
+.hint-item.active {
+    background: #e6f2ff;
+    font-weight: bold;
 }
 
 .hint-item.solved {
-    background: #d4edda;
-    border-left-color: #28a745;
+    color: #999999;
     text-decoration: line-through;
-    opacity: 0.7;
 }
 
 .hint-number {
     font-weight: bold;
-    color: #4682B4;
-    margin-right: 8px;
+    margin-right: 4px;
 }
 
 .message {
-    text-align: center;
-    padding: 15px;
-    margin-top: 20px;
-    border-radius: 8px;
-    font-weight: bold;
     display: none;
+    padding: 8px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 11px;
 }
 
 .message.success {
     display: block;
     background: #d4edda;
-    color: #155724;
-    border: 2px solid #28a745;
+    border: 1px solid #28a745;
 }
 
 .message.error {
     display: block;
     background: #f8d7da;
-    color: #721c24;
-    border: 2px solid #dc3545;
+    border: 1px solid #dc3545;
 }
 
-/* Connections Game Styles */
-#connections-game {
-    margin-top: 30px;
+/* Connections */
+.connections-instruction {
+    text-align: center;
+    background: #e6f2ff;
+    border: 1px solid #0066cc;
+    padding: 8px;
+    margin: 10px 0 15px;
+    font-weight: bold;
+    font-size: 12px;
 }
 
-#mistakes-container {
+.solved-groups {
+    margin-bottom: 15px;
+}
+
+.solved-group {
+    padding: 8px;
+    border: 1px solid #000000;
+    margin-bottom: 8px;
+    font-size: 11px;
+}
+
+.solved-group.green {
+    background: #90ee90;
+}
+
+.solved-group.yellow {
+    background: #ffffcc;
+}
+
+.solved-group.blue {
+    background: #e6f2ff;
+}
+
+.solved-group.purple {
+    background: #e6e6fa;
+}
+
+.group-category {
+    font-size: 10px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.group-words {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.group-word {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 2px 6px;
+    font-size: 11px;
+}
+
+.mistakes-container {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 11px;
 }
 
 .mistake-indicator {
     font-weight: bold;
-    color: #4682B4;
-}
-
-.mistake-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #E0F6FF;
-    border: 2px solid #87CEEB;
-}
-
-.mistake-dot.used {
-    background: #FF6B6B;
-    border-color: #FF4757;
 }
 
 .selected-words {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-    min-height: 60px;
-    padding: 15px;
-    background: #F0F8FF;
-    border-radius: 10px;
-    border: 2px dashed #87CEEB;
+    gap: 6px;
+    margin-bottom: 10px;
     justify-content: center;
-    align-items: center;
-}
-
-.select-hint {
-    color: #666;
-    font-style: italic;
-    text-align: center;
-    width: 100%;
+    padding: 8px;
+    background: #f0f0f0;
+    border: 1px solid #cccccc;
 }
 
 .selected-word {
-    padding: 10px 15px;
-    background: #87CEEB;
-    color: white;
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 4px 10px;
+    background: #0066cc;
+    color: #ffffff;
+    border: 1px outset #0066cc;
     cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 11px;
 }
 
-.selected-word:hover {
-    background: #4682B4;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.selected-word:active {
+    border: 1px inset #0066cc;
 }
 
 .submit-btn {
-    padding: 12px 24px;
-    background: #4682B4;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
+    padding: 6px 14px;
+    background: #0066cc;
+    color: #ffffff;
+    border: 2px outset #0066cc;
     cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    font-size: 11px;
 }
 
-.submit-btn:hover {
-    background: #5a9fd4;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+.submit-btn:active {
+    border: 2px inset #0066cc;
 }
 
 .words-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 6px;
+    margin-bottom: 15px;
 }
 
 .word-item {
-    padding: 15px;
-    background: white;
-    border: 2px solid #87CEEB;
-    border-radius: 8px;
+    padding: 8px;
+    background: #ffffff;
+    border: 1px solid #cccccc;
     text-align: center;
-    font-weight: bold;
     cursor: pointer;
-    transition: all 0.2s;
-    color: #333;
+    font-size: 11px;
 }
 
 .word-item:hover {
-    background: #E0F6FF;
-    border-color: #4682B4;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #e6f2ff;
+    border: 1px solid #0066cc;
 }
 
 .word-item.selected {
-    background: #87CEEB;
-    color: white;
-    border-color: #4682B4;
+    background: #0066cc;
+    color: #ffffff;
+    border: 1px outset #0066cc;
 }
 
 .word-item.solved {
-    opacity: 0.5;
-    cursor: not-allowed;
-    text-decoration: line-through;
+    opacity: 0.3;
+    pointer-events: none;
 }
 
-#connections-complete {
+.view-results-btn {
+    padding: 8px 18px;
+    background: #ffffff;
+    border: 2px outset #c0c0c0;
+    color: #000000;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.view-results-btn:active {
+    border: 2px inset #c0c0c0;
+}
+
+.connections-complete.hidden {
+    display: none;
+}
+
+/* Escape Room Styles */
+.escape-room-intro {
+    text-align: center;
+    padding: 20px;
+}
+
+.escape-room-intro .beckham-container {
+    margin-bottom: 20px;
+}
+
+.escape-room-intro h2 {
+    color: #0066cc;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.escape-room-intro p {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 13px;
+}
+
+.escape-room-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.current-clue {
+    background: #e6f2ff;
+    border: 1px solid #0066cc;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.current-clue h3 {
+    color: #0066cc;
+    font-size: 14px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.clue-display {
+    margin-top: 10px;
+}
+
+.clue-text {
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    font-weight: normal;
+}
+
+.clue-hint {
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #cccccc;
+}
+
+.answer-input {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border: 1px solid #cccccc;
+}
+
+.answer-input label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    color: #0066cc;
+    margin-bottom: 8px;
+}
+
+.clue-input {
+    width: 100%;
+    padding: 8px;
+    font-size: 13px;
+    border: 1px inset #c0c0c0;
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+}
+
+.clue-input:focus {
+    outline: 2px solid #0066cc;
+    background: #ffffcc;
+}
+
+.solved-clues {
+    margin-top: 25px;
+    padding: 15px;
+    background: #f0f4ff;
+    border: 1px solid #0066cc;
+}
+
+.solved-clues h3 {
+    color: #0066cc;
+    font-size: 14px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.solved-clues-list {
+    margin-top: 10px;
+}
+
+.solved-clue-item {
+    padding: 8px;
+    margin-bottom: 8px;
+    background: #ffffff;
+    border: 1px solid #cccccc;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.solved-clue-number {
+    font-size: 11px;
+    color: #666;
+    font-weight: bold;
+}
+
+.solved-clue-answer {
+    font-size: 13px;
+    color: #0066cc;
+    font-weight: bold;
+}
+
+.escape-room-complete {
     text-align: center;
     padding: 30px;
+    background: #e6f2ff;
+    border: 2px solid #0066cc;
 }
 
-.category-reveal {
-    margin: 20px 0;
-    padding: 15px;
-    background: #F0F8FF;
-    border-radius: 8px;
-    border-left: 4px solid;
-    text-align: left;
+.escape-room-complete h2 {
+    color: #0066cc;
+    font-size: 24px;
+    margin-bottom: 15px;
 }
 
-.category-reveal h4 {
-    color: #4682B4;
-    margin-bottom: 10px;
-    font-size: 1.2em;
+.escape-room-complete.hidden {
+    display: none;
 }
 
-.category-words {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+.escape-room-content.hidden {
+    display: none;
 }
 
-.category-word {
-    padding: 6px 12px;
-    background: white;
-    border: 1px solid #87CEEB;
-    border-radius: 6px;
-    font-weight: bold;
-    color: #333;
+.escape-room-intro.hidden {
+    display: none;
 }
+
+
 
 @media (max-width: 768px) {
-    .container {
-        padding: 20px;
+    .crossword-layout {
+        display: block;
     }
 
-    h1 {
-        font-size: 2em;
-    }
-
-    .crossword-cell {
-        width: 35px;
-        height: 35px;
-        font-size: 16px;
-    }
-
-    #hints-container {
-        grid-template-columns: 1fr;
+    .crossword-left,
+    .crossword-right {
+        display: block;
+        width: 100%;
+        padding-right: 0;
     }
 
     .words-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .selected-words {
-        min-height: 80px;
-    }
+
 }

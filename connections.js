@@ -3,17 +3,17 @@
 
 const CONNECTIONS_CONFIG = {
     // Categories with their words and difficulty level
-    // Difficulty: 1 = easiest (yellow), 2 = medium (green), 3 = hard (blue), 4 = hardest (purple)
+    // Difficulty: 1 = easiest (green), 2 = medium (yellow), 3 = hard (light blue), 4 = hardest (purple)
     categories: [
         {
-            name: "Category 1", // Replace with your category name
-            words: ["WORD1", "WORD2", "WORD3", "WORD4"], // Replace with your words
-            difficulty: 1
+            name: "Sports Games", // Replace with your category name
+            words: ["FIFA", "TAG", "SOCCER", "BASKETBALL"], // Replace with your words
+            difficulty: 2 // Yellow (easiest)
         },
         {
             name: "Category 2", // Replace with your category name
             words: ["WORD5", "WORD6", "WORD7", "WORD8"], // Replace with your words
-            difficulty: 2
+            difficulty: 1
         },
         {
             name: "Category 3", // Replace with your category name
@@ -37,9 +37,22 @@ class ConnectionsGame {
         this.maxMistakes = 4;
         this.allWords = [];
         this.shuffledWords = [];
+        this.solvedGroups = [];
+        // Color order: Green (easiest), Yellow, Light Blue, Purple (hardest)
+        this.difficultyColors = ['green', 'yellow', 'blue', 'purple'];
 
+        this.setDate();
         this.init();
         this.render();
+    }
+
+    setDate() {
+        const dateElement = document.getElementById('connections-date');
+        if (dateElement) {
+            const today = new Date();
+            const options = { month: 'long', day: 'numeric', year: 'numeric' };
+            dateElement.textContent = today.toLocaleDateString('en-US', options);
+        }
     }
 
     init() {
@@ -59,8 +72,36 @@ class ConnectionsGame {
     }
 
     render() {
+        this.renderSolvedGroups();
         this.renderWords();
         this.updateMistakes();
+    }
+
+    renderSolvedGroups() {
+        const container = document.getElementById('solved-groups');
+        container.innerHTML = '';
+
+        this.solvedGroups.forEach((group, index) => {
+            const groupDiv = document.createElement('div');
+            groupDiv.className = `solved-group ${group.color}`;
+
+            const categoryDiv = document.createElement('div');
+            categoryDiv.className = 'group-category';
+            categoryDiv.textContent = group.category;
+            groupDiv.appendChild(categoryDiv);
+
+            const wordsDiv = document.createElement('div');
+            wordsDiv.className = 'group-words';
+            group.words.forEach(word => {
+                const wordSpan = document.createElement('span');
+                wordSpan.className = 'group-word';
+                wordSpan.textContent = word;
+                wordsDiv.appendChild(wordSpan);
+            });
+            groupDiv.appendChild(wordsDiv);
+
+            container.appendChild(groupDiv);
+        });
     }
 
     renderWords() {
@@ -150,11 +191,18 @@ class ConnectionsGame {
         if (categories.size === 1) {
             // Correct! Mark category as solved
             const category = selectedWords[0].category;
+            const categoryData = this.config.categories.find(c => c.name === category);
             this.solvedCategories.add(category);
-            this.selectedWords.clear();
 
-            // Show success message
-            this.showMessage(`Correct! Category: ${category}`, 'success');
+            // Add to solved groups
+            const colorIndex = categoryData.difficulty - 1;
+            this.solvedGroups.push({
+                category: category,
+                words: selectedWords.map(w => w.word),
+                color: this.difficultyColors[colorIndex]
+            });
+
+            this.selectedWords.clear();
 
             // Check if all categories are solved
             if (this.solvedCategories.size === this.config.categories.length) {
@@ -211,49 +259,43 @@ class ConnectionsGame {
     }
 
     revealAll() {
+        // Add all remaining categories to solved groups
         this.config.categories.forEach(category => {
-            this.solvedCategories.add(category.name);
+            if (!this.solvedCategories.has(category.name)) {
+                this.solvedCategories.add(category.name);
+                const colorIndex = category.difficulty - 1;
+                this.solvedGroups.push({
+                    category: category.name,
+                    words: category.words,
+                    color: this.difficultyColors[colorIndex]
+                });
+            }
         });
         this.render();
         this.onComplete();
     }
 
     onComplete() {
-        const gameContainer = document.getElementById('connections-game');
         const completeSection = document.getElementById('connections-complete');
-        const categoriesRevealed = document.getElementById('categories-revealed');
+        const viewResultsBtn = document.getElementById('view-results-btn');
 
-        categoriesRevealed.innerHTML = '<h3>Categories:</h3>';
+        // Hide game elements
+        document.getElementById('words-grid').style.display = 'none';
+        document.getElementById('selected-words').style.display = 'none';
+        document.getElementById('mistakes-container').style.display = 'none';
+        document.getElementById('connections-instruction').style.display = 'none';
 
-        // Sort categories by difficulty
-        const sortedCategories = [...this.config.categories].sort((a, b) => a.difficulty - b.difficulty);
-        const difficultyColors = ['#FFD700', '#90EE90', '#87CEEB', '#DDA0DD']; // Yellow, Green, Light Blue, Purple
+        // Show complete section
+        completeSection.classList.remove('hidden');
 
-        sortedCategories.forEach(category => {
-            const categoryDiv = document.createElement('div');
-            categoryDiv.className = 'category-reveal';
-            categoryDiv.style.borderLeftColor = difficultyColors[category.difficulty - 1];
-
-            const categoryName = document.createElement('h4');
-            categoryName.textContent = category.name;
-            categoryDiv.appendChild(categoryName);
-
-            const wordsList = document.createElement('div');
-            wordsList.className = 'category-words';
-            category.words.forEach(word => {
-                const wordSpan = document.createElement('span');
-                wordSpan.className = 'category-word';
-                wordSpan.textContent = word;
-                wordsList.appendChild(wordSpan);
-            });
-            categoryDiv.appendChild(wordsList);
-
-            categoriesRevealed.appendChild(categoryDiv);
+        // Sort solved groups by difficulty (green, yellow, blue, purple)
+        this.solvedGroups.sort((a, b) => {
+            const aIndex = this.difficultyColors.indexOf(a.color);
+            const bIndex = this.difficultyColors.indexOf(b.color);
+            return aIndex - bIndex;
         });
 
-        gameContainer.style.display = 'none';
-        completeSection.classList.remove('hidden');
-        completeSection.classList.add('active');
+        this.renderSolvedGroups();
     }
 }
 

@@ -3,43 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday! 🎉</title>
+    <title>Happy Birthday! - Seba's 19th</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div id="crossword-section" class="section active">
-            <h1>Happy Birthday! 🎉</h1>
-            <p class="subtitle">Complete the crossword to continue...</p>
-            <div id="crossword-container"></div>
-            <div id="hints-container"></div>
-            <div id="message" class="message"></div>
+    <div class="aol-window">
+        <div class="aol-titlebar">
+            <span class="title-text">seba is so awesome</span>
         </div>
 
-        <div id="next-section" class="section hidden">
-            <h1>🎊 Congratulations! 🎊</h1>
-            <p class="subtitle">You solved the crossword! Now try Connections...</p>
+        <div class="aol-toolbar">
+            <button class="toolbar-btn" onclick="showBeckham()">Home</button>
+            <button class="toolbar-btn" onclick="startGame()">Crossword</button>
+            <button class="toolbar-btn" onclick="showConnections()">Connections</button>
+            <button class="toolbar-btn" onclick="showEscapeRoom()">Escape Room</button>
+            <div class="toolbar-spacer"></div>
+            <div class="welcome-text"><span id="current-date"></span></div>
+        </div>
 
-            <div id="connections-game">
-                <div id="mistakes-container">
-                    <div class="mistake-indicator">Mistakes: <span id="mistakes-count">0</span>/4</div>
+        <div class="aol-main">
+            <div class="aol-content">
+                <div id="beckham-section" class="section active">
+                    <div class="content-box">
+                        <div class="homepage-container">
+                            <div class="seba-photos-scattered">
+                                <img src="seba1.jpeg" alt="Seba Photo 1" class="seba-photo scattered" style="top: 2%; left: 2%;" onerror="this.style.display='none';" />
+                                <img src="seba2.jpg" alt="Seba Photo 2" class="seba-photo scattered" style="top: 2%; right: 2%;" onerror="this.style.display='none';" />
+                                <img src="seba3.jpg" alt="Seba Photo 3" class="seba-photo scattered" style="top: 45%; left: 2%;" onerror="this.style.display='none';" />
+                                <img src="seba4.jpg" alt="Seba Photo 4" class="seba-photo scattered" style="top: 45%; right: 2%;" onerror="this.style.display='none';" />
+                                <img src="seba5.jpg" alt="Seba Photo 5" class="seba-photo scattered" style="top: 88%; left: 2%;" onerror="this.style.display='none';" />
+                                <img src="seba6.jpg" alt="Seba Photo 6" class="seba-photo scattered" style="top: 88%; right: 2%;" onerror="this.style.display='none';" />
+                            </div>
+                            <div class="center-message">
+                                <h2 class="birthday-message">Happy 19th Sebaaaaaa</h2>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div id="selected-words" class="selected-words"></div>
+                <div id="crossword-section" class="section hidden">
+                    <div class="content-header">
+                        <h1>The Mini Crossword</h1>
+                        <div class="content-date" id="crossword-date"></div>
+                    </div>
 
-                <div id="words-grid" class="words-grid"></div>
+                    <div class="content-box">
+                        <div class="crossword-layout">
+                            <div class="crossword-left">
+                                <div id="selected-clue" class="selected-clue"></div>
+                                <div id="crossword-container"></div>
+                            </div>
+                            <div class="crossword-right">
+                                <div id="hints-container"></div>
+                            </div>
+                        </div>
+                        <div id="message" class="message"></div>
+                    </div>
+                </div>
 
-                <div id="connections-message" class="message"></div>
+                <div id="next-section" class="section hidden">
+                    <div class="content-header">
+                        <h1>Connections</h1>
+                        <div class="content-date" id="connections-date"></div>
+                    </div>
 
-                <div id="connections-complete" class="section hidden">
-                    <h2>🎉 Amazing! You completed Connections! 🎉</h2>
-                    <div id="categories-revealed"></div>
+                    <div class="content-box">
+                        <div id="connections-game">
+                            <p class="connections-instruction">Create four groups of four!</p>
+
+                            <div id="solved-groups" class="solved-groups"></div>
+
+                            <div id="mistakes-container" class="mistakes-container">
+                                <div class="mistake-indicator">Mistakes: <span id="mistakes-count">0</span>/4</div>
+                            </div>
+
+                            <div id="selected-words" class="selected-words"></div>
+
+                            <div id="words-grid" class="words-grid"></div>
+
+                            <div id="connections-message" class="message"></div>
+
+                            <div id="connections-complete" class="connections-complete hidden">
+                                <button id="view-results-btn" class="aol-button">View Results</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="escape-room-section" class="section hidden">
+                    <div class="content-header">
+                        <h1>Escape Room</h1>
+                        <div class="content-date" id="escape-room-date"></div>
+                    </div>
+
+                    <div class="content-box">
+                        <div id="escape-room-game">
+                            <div id="escape-room-intro" class="escape-room-intro">
+                                <div class="beckham-container">
+                                    <img src="beckhamwall.png" alt="David Beckham Wall" class="beckham-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                                    <div class="beckham-placeholder" style="display: none;">
+                                        <p style="padding: 80px; background: #e6f2ff; border: 1px solid #0066cc; text-align: center;">
+                                            [Add your Beckham wall photo here]
+                                        </p>
+                                    </div>
+                                </div>
+                                <h2>Beckham Needs Your Help!</h2>
+                                <p>Solve the clues to unlock the final answer. Each clue will lead you to the next one.</p>
+                                <button onclick="startEscapeRoom()" class="aol-button">Start Escape Room</button>
+                            </div>
+
+                            <div id="escape-room-content" class="escape-room-content hidden">
+                                <div id="current-clue" class="current-clue">
+                                    <h3>Current Clue</h3>
+                                    <div id="clue-display" class="clue-display"></div>
+                                </div>
+
+                                <div id="answer-input" class="answer-input">
+                                    <label for="clue-answer">Enter your answer:</label>
+                                    <input type="text" id="clue-answer" class="clue-input" placeholder="Type your answer here...">
+                                    <button onclick="submitClueAnswer()" class="aol-button">Submit</button>
+                                </div>
+
+                                <div id="escape-room-message" class="message"></div>
+
+                                <div id="solved-clues" class="solved-clues">
+                                    <h3>Solved Clues</h3>
+                                    <div id="solved-clues-list"></div>
+                                </div>
+
+                                <div id="escape-room-complete" class="escape-room-complete hidden">
+                                    <h2>🎉 Congratulations! You Escaped! 🎉</h2>
+                                    <div id="final-message"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="crossword.js"></script>
     <script src="connections.js"></script>
+    <script src="escape-room.js"></script>
     <script src="app.js"></script>
+    <script>
+        function setDate() {
+            const today = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateStr = today.toLocaleDateString('en-US', options);
+            document.getElementById('current-date').textContent = dateStr;
+            document.getElementById('welcome-date').textContent = dateStr;
+            document.getElementById('crossword-date').textContent = dateStr;
+            document.getElementById('connections-date').textContent = dateStr;
+            document.getElementById('escape-room-date').textContent = dateStr;
+        }
+
+        function startGame() {
+            document.getElementById('beckham-section').classList.remove('active');
+            document.getElementById('beckham-section').classList.add('hidden');
+            document.getElementById('next-section').classList.remove('active');
+            document.getElementById('next-section').classList.add('hidden');
+            document.getElementById('escape-room-section').classList.remove('active');
+            document.getElementById('escape-room-section').classList.add('hidden');
+            document.getElementById('crossword-section').classList.remove('hidden');
+            document.getElementById('crossword-section').classList.add('active');
+            if (typeof crossword !== 'undefined') {
+                crossword.render();
+            }
+        }
+
+        function showBeckham() {
+            document.getElementById('crossword-section').classList.remove('active');
+            document.getElementById('crossword-section').classList.add('hidden');
+            document.getElementById('next-section').classList.remove('active');
+            document.getElementById('next-section').classList.add('hidden');
+            document.getElementById('escape-room-section').classList.remove('active');
+            document.getElementById('escape-room-section').classList.add('hidden');
+            document.getElementById('beckham-section').classList.remove('hidden');
+            document.getElementById('beckham-section').classList.add('active');
+        }
+
+        function showConnections() {
+            document.getElementById('beckham-section').classList.remove('active');
+            document.getElementById('beckham-section').classList.add('hidden');
+            document.getElementById('crossword-section').classList.remove('active');
+            document.getElementById('crossword-section').classList.add('hidden');
+            document.getElementById('escape-room-section').classList.remove('active');
+            document.getElementById('escape-room-section').classList.add('hidden');
+            document.getElementById('next-section').classList.remove('hidden');
+            document.getElementById('next-section').classList.add('active');
+            if (typeof connectionsGame !== 'undefined' && !connectionsGame) {
+                connectionsGame = new ConnectionsGame(CONNECTIONS_CONFIG);
+            }
+        }
+
+        function showEscapeRoom() {
+            document.getElementById('beckham-section').classList.remove('active');
+            document.getElementById('beckham-section').classList.add('hidden');
+            document.getElementById('crossword-section').classList.remove('active');
+            document.getElementById('crossword-section').classList.add('hidden');
+            document.getElementById('next-section').classList.remove('active');
+            document.getElementById('next-section').classList.add('hidden');
+            document.getElementById('escape-room-section').classList.remove('hidden');
+            document.getElementById('escape-room-section').classList.add('active');
+        }
+
+        function startEscapeRoom() {
+            document.getElementById('escape-room-intro').classList.add('hidden');
+            document.getElementById('escape-room-content').classList.remove('hidden');
+            if (typeof escapeRoom !== 'undefined') {
+                escapeRoom.start();
+            }
+        }
+
+        function submitClueAnswer() {
+            const answer = document.getElementById('clue-answer').value.trim().toLowerCase();
+            if (answer && typeof escapeRoom !== 'undefined') {
+                escapeRoom.submitAnswer(answer);
+                document.getElementById('clue-answer').value = '';
+            }
+        }
+
+        // Allow Enter key to submit
+        document.addEventListener('DOMContentLoaded', () => {
+            const answerInput = document.getElementById('clue-answer');
+            if (answerInput) {
+                answerInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        submitClueAnswer();
+                    }
+                });
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', setDate);
+    </script>
 </body>
 </html>
